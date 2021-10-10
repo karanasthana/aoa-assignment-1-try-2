@@ -19,7 +19,7 @@ public final class CompleteGraphDemo
     public static void main(String[] args) {
         int graphSize = 10;
 
-    	for (int i=0; i<15; i++) {
+    	for (int i=0; i<1500; i++) {
     		if (i < 5) {
     			graphSize = (int)(Math.random() * Math.pow(10, (i+2)));
     		} else {

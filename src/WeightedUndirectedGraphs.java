@@ -13,14 +13,14 @@ public class WeightedUndirectedGraphs {
         FindCyclesTest.runTestCases();
         System.out.println("All Test cases run successfully!");
 
-    	for (int i = 0; i < 10; i++) {
+    	for (int i = 0; i < 1; i++) {
 			int numVertices = 0;
     		if (i < 5) {
     			numVertices = (int)(Math.random() * Math.pow(10, (i+2)));
     		} else {
     			numVertices = (int)(Math.random() * Math.pow(10, 6));
     		}
-    		int numEdges = numVertices + (int)(Math.random() * 8); // creating the number of edges from n to (n + 8)
+    		int numEdges = numVertices + Math.min((int)(Math.random() * 8), numVertices); // creating the number of edges from n to (n + 8)
 
     		Graph<Integer, DefaultWeightedEdge> graph = generateWeightedGraphs(numVertices, numEdges);
 
@@ -31,6 +31,7 @@ public class WeightedUndirectedGraphs {
 
 	public static void performMSTFind(Graph<Integer, DefaultWeightedEdge> graph, int numVertices, int numEdges) {
 		long startTime = System.nanoTime();
+
 		// HERE WE NEED TO DO THE MST LOGIC
 		for (int j = numVertices; j <= numEdges; j++) {
 			List<Integer> cycle = Cycle.returnCycle(graph);

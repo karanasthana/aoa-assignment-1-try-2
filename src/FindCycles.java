@@ -17,9 +17,9 @@ public final class FindCycles
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        int graphSize = 10;
+        int graphSize = 0;
 
-    	for (int i=0; i<1500; i++) {
+    	for (int i=0; i<15; i++) {
     		if (i < 5) {
     			graphSize = (int)(Math.random() * Math.pow(10, (i+2)));
     		} else {
@@ -37,6 +37,8 @@ public final class FindCycles
             System.out.println("  Is cycle present? - " + (cycle.size() > 0));
             writeToFile(graphSize, numEdges, elapsedTime);
     	}
+    	
+//    	runTestCases();
     }
     
     /**
@@ -167,5 +169,43 @@ public final class FindCycles
     		System.out.println("Exception occurred e: " + e.getMessage());
     		e.printStackTrace();
     	}
+    }
+    
+    public static void runTestCases() {
+    	Supplier<Integer> vSupplier = new Supplier<Integer>()
+        {
+            private int id = 0;
+
+            @Override
+            public Integer get()
+            {
+                return id++;
+            }
+        };
+
+	    Graph<Integer, DefaultEdge> graph = new SimpleGraph<>(vSupplier, SupplierUtil.createDefaultEdgeSupplier(), false); 
+	    
+	    graph.addVertex(1);
+	    graph.addVertex(2);
+	    graph.addVertex(3);
+	    graph.addVertex(4);
+	    
+	    graph.addEdge(1, 2);
+	    graph.addEdge(2, 3);
+	    graph.addEdge(3, 4);
+	    graph.addEdge(4, 1);
+	    
+	    if (Cycle.ReturnCycle(graph).size() == 0) {
+	    	System.out.println("Test Case Failed for Graph 1 (4 vertex, 4 edge)");
+//	    	System.exit();
+	    } else {
+	    	System.out.println("Successfully Passed Test Case 1");
+	    }
+	    
+	    graph = new SimpleGraph<>(vSupplier, SupplierUtil.createDefaultEdgeSupplier(), false);
+	    
+	    System.out.println("Graph now has - " + graph.vertexSet().size() + " vertices");
+	    System.out.println("Graph now has - " + graph.edgeSet().size() + " edges");
+
     }
 }

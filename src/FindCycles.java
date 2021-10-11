@@ -102,7 +102,7 @@ public final class FindCycles
     		
     		String weightedEdges = "";
     		for(DefaultWeightedEdge e: edges) {
-    			weightedEdges = e.toString() + graph.getEdgeWeight(e) + " ";
+    			weightedEdges = e.toString() + " " + graph.getEdgeWeight(e) + " ";
     		}
     		System.out.println("Vertex " + vertex + " connected to: " + weightedEdges);
     	}

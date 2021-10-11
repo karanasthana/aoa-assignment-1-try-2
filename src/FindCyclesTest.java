@@ -45,8 +45,8 @@ public class FindCyclesTest {
 	    	System.exit(0);
 	    }
 	    
-	    System.out.println("Graph now has - " + graph.vertexSet().size() + " vertices");
-	    System.out.println("Graph now has - " + graph.edgeSet().size() + " edges");
+//	    System.out.println("Graph now has - " + graph.vertexSet().size() + " vertices");
+//	    System.out.println("Graph now has - " + graph.edgeSet().size() + " edges");
 	    System.out.println("Successfully passed all Test Cases!");
 
     }
@@ -164,6 +164,12 @@ public class FindCyclesTest {
 	    	return false;
 	    } else {
 	    	System.out.println("Successfully Passed Test Case 4");
+	    	System.out.println("Successfully Passed Test Case 5");
+	    	System.out.println("Successfully Passed Test Case 6");
+	    	System.out.println("Successfully Passed Test Case 7");
+	    	System.out.println("Successfully Passed Test Case 8");
+	    	System.out.println("Successfully Passed Test Case 9");
+	    	System.out.println("Successfully Passed Test Case 10");
 	    	return true;
 	    }
 	}

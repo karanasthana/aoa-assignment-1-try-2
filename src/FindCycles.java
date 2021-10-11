@@ -80,7 +80,7 @@ public final class FindCycles
      * 
      * @param graph The Graph object instance which has been created with random vertices and edges
      */
-    public static void printGraph(Graph<Integer, DefaultEdge> graph, boolean hasWeight) {
+    public static void printGraph(Graph<Integer, DefaultEdge> graph) {
     	Iterator<Integer> iter = new DepthFirstIterator<>(graph);
     	while (iter.hasNext()) {
     		Integer vertex = iter.next();

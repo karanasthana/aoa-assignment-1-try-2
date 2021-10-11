@@ -3,50 +3,75 @@ import org.jgrapht.Graphs;
 import java.util.*;
 
 public class Cycle {
-    static ArrayList cycle = new ArrayList();
-    static LinkedList DFSStack = new LinkedList();
+    @SuppressWarnings("rawtypes")
+	static ArrayList cycle = new ArrayList();
+    @SuppressWarnings("rawtypes")
+	static LinkedList CycleList = new LinkedList();
     static Set<Integer> visited = new HashSet<Integer>();
-    static Graph graph;
-
-    public static Boolean DFS(int currentV, int parent){
+    @SuppressWarnings("rawtypes")
+	static Graph graph;
+    
+    
+    /**
+     * Helper function to execute the Depth First Search (DFS) algorithm to find a cycle starting from this node
+     * 
+     * @param currentV - The current vertex for which we need to find links and cycle
+     * @param parent - The node from where we entered the vertex v into the graph (to prevent double checking the same edge)
+     */
+    @SuppressWarnings("unchecked")
+	public static Boolean CyclicUtil(int currentV, int parent){
         visited.add(currentV);
-        DFSStack.add(currentV);
+        
+        CycleList.add(currentV); // adding the vertex to the DFS Stack (to store the cycle path)
+
         for(Object neighbor: Graphs.neighborListOf(graph, currentV)){
             int child = (int)neighbor;
-            if(!visited.contains(child)){
-                if(DFS(child, currentV))return true;
+            if(!visited.contains(child)) {
+                if(CyclicUtil(child, currentV)) {
+                	return true;
+                }
             }
             else if(child != parent){
-                DFSStack.add(child);
+                CycleList.add(child);
                 return true;
             }
         }
-        DFSStack.pollLast();
+        CycleList.pollLast();
         return false;
     }
 
-    public static List<Integer> ReturnCycle(Graph g){
+    /**
+     * Returns a non-empty List of vertices (integers) if the graph contains a cycle, else an empty list.
+     * 
+     * @param graph The Graph object instance which has been created with random vertices and edges
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public static List<Integer> returnCycle(Graph g){
         graph = g;
-        Set vSet = graph.vertexSet();
+        Set<Integer> vSet = graph.vertexSet();
         visited.clear();
         cycle.clear();
 
-        for(Object v: vSet){
-            if(!visited.contains((int)v)){
-                DFSStack.clear();
-                if(DFS((int)v, -1)){
-//                    System.out.println(DFSStack);
-                    Integer start = (Integer)DFSStack.pollLast();
-                    cycle.add(start);
-//                    System.out.print(start + ", ");
-                    while(!DFSStack.isEmpty()){
-                        if((int)DFSStack.peekLast() == start)break;
-//                        System.out.print((Integer)DFSStack.peekLast() + ", ");
-                        cycle.add((Integer)DFSStack.pollLast());
+        for(Object v: vSet) {
+        	if (visited.contains((int)v)) {
+        		continue;
+        	}
+            CycleList.clear();
+            if (CyclicUtil((int)v, -1)) {
+                Integer start = (Integer)CycleList.pollLast();
+
+                cycle.add(start);
+
+                while (!CycleList.isEmpty()){
+                    if ((int)CycleList.peekLast() == start) {
+                    	break;
                     }
-                    cycle.add(start);
-                    return cycle;
+                    cycle.add((Integer)CycleList.pollLast());
                 }
+                
+                cycle.add(start);
+                
+                return cycle;
             }
         }
 

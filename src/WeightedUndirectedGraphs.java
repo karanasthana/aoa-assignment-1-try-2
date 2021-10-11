@@ -14,7 +14,7 @@ public class WeightedUndirectedGraphs {
         FindCyclesTest.runTestCases();
         System.out.println("All Test cases run successfully!");
 
-    	for (int i = 0; i < 5; i++) {
+    	for (int i = 0; i < 2000; i++) {
 			int numVertices = 0;
     		if (i < 5) {
     			numVertices = (int)(Math.random() * Math.pow(10, (i+2)));
@@ -22,13 +22,19 @@ public class WeightedUndirectedGraphs {
     			numVertices = (int)(Math.random() * Math.pow(10, 6));
     		}
 
-    		Graph<Integer, DefaultWeightedEdge> graph = generateWeightedGraphs(numVertices);
+    		Graph<Integer, DefaultWeightedEdge> graph;
+    		try {
+    			graph = generateWeightedGraphs(numVertices);
+			} catch (Exception e) {
+				System.out.println("Created a self looped graph! Not allowed, Ignore! i = " + i);
+				continue;
+			}
+
 
     		performMSTFind(graph, numVertices, graph.edgeSet().size());
 
-    		System.out.println();
-    		System.out.println();
-    		System.out.println();
+    		if (i%100 == 0)
+    		System.out.println("Computed " + i + " values");
     	}
     	System.out.print("Added all the data in the csv.");
 	}
@@ -47,7 +53,7 @@ public class WeightedUndirectedGraphs {
 		long endTime = System.nanoTime();
 		long elapsedTime = endTime - startTime;
 		
-		System.out.println("Found the MST after removing " + (numEdges - numVertices + 1) + " edges!");
+//		System.out.println("Found the MST after removing " + (numEdges - numVertices + 1) + " edges!");
 
 		FindCycles.writeToFile(numVertices, numEdges, elapsedTime, "q2_data.csv");
 	}
@@ -69,38 +75,24 @@ public class WeightedUndirectedGraphs {
                 new SimpleWeightedGraph<>(vSupplier, SupplierUtil.createDefaultWeightedEdgeSupplier());
 
 //      Initialize TreeGenerator
-        PruferTreeGenerator<Integer, DefaultWeightedEdge> pruferTreeGenerator =
-                new PruferTreeGenerator<>(verticesNum);
+        PruferTreeGenerator<Integer, DefaultWeightedEdge> pruferTreeGenerator = new PruferTreeGenerator<>(verticesNum);
 
 //      Generating the base tree structure for the graph
         pruferTreeGenerator.generateGraph(sparseGraph);
+        sparseGraph = addRandomEdges(sparseGraph);
 
-//	    // Create the graph object
-//	    Graph<Integer, DefaultWeightedEdge> simpleWeightedGraph = new SimpleWeightedGraph<>(vSupplier, SupplierUtil.createDefaultWeightedEdgeSupplier());
-//	    // Create the GnmRandomGraphGenerator object
-//	    GnmRandomGraphGenerator<Integer, DefaultWeightedEdge> simpleGenerator = new GnmRandomGraphGenerator<>(verticesNum, edgesNum);
-//	
-//	    // Use the GnmRandomGraphGenerator object to make a simpleGraph with numVertices number of vertices
-//	    simpleGenerator.generateGraph(simpleWeightedGraph);
-        
-        addRandomEdges(sparseGraph);
-	    
 	    Set<DefaultWeightedEdge> edges = sparseGraph.edgeSet();
 	    int numEdges = edges.size();
 	    for (DefaultWeightedEdge e: edges) {
 	    	sparseGraph.setEdgeWeight(e, (Math.ceil(Math.random() * numEdges * 5)));
 	    }
-
-//		FindCycles.printWeightedGraph(simpleWeightedGraph);
-
+    
 		return sparseGraph;
-	
-//	    return simpleGraph;
 	}
 	
 	public static Graph<Integer, DefaultWeightedEdge> addRandomEdges(Graph<Integer, DefaultWeightedEdge> graph) {
 		int numEdgesToAdd = (int)(Math.random() * 8);
-		System.out.println("Number of edges being added: " + numEdgesToAdd);
+//		System.out.println("Number of edges being added: " + numEdgesToAdd);
 		for (int i=0; i<numEdgesToAdd; i++) {
 			graph = addRandomEdge(graph);
 		}
@@ -122,7 +114,7 @@ public class WeightedUndirectedGraphs {
 			} else {
 				DefaultWeightedEdge e = graph.addEdge(vertex1, vertex2);
 				graph.setEdgeWeight(e, (Math.ceil(Math.random() * (graph.vertexSet().size()* 5))));
-				System.out.println("Adding edge between " + vertex1 + " and " + vertex2);
+				// System.out.println("Adding edge between " + vertex1 + " and " + vertex2);
 				isAdded = true;
 			}
 		}
@@ -133,7 +125,7 @@ public class WeightedUndirectedGraphs {
 	public static DefaultWeightedEdge removeHeaviestEdge(List<Integer> verticesList, Set<DefaultWeightedEdge> edgesSet, Graph<Integer, DefaultWeightedEdge> graph) {
 		double max = -1;
 		DefaultWeightedEdge maxEdge = null;
-		int sourceF=-1, targetF=-1;
+		// int sourceF=-1, targetF=-1;
 
 		for(DefaultWeightedEdge edge : edgesSet) {
 			double edgeWeight = graph.getEdgeWeight(edge);
@@ -144,12 +136,12 @@ public class WeightedUndirectedGraphs {
 				if (edgeWeight > max) {
 					max = edgeWeight;
 					maxEdge = edge;
-					sourceF = source;
-					targetF = target;
+					// sourceF = source;
+					// targetF = target;
 				}
 			}
 		}
-		System.out.println("Removing the edge between " + sourceF + " and " + targetF + " which weighed " + max);
+		// System.out.println("Removing the edge between " + sourceF + " and " + targetF + " which weighed " + max);
 		return maxEdge;
 	}
 }

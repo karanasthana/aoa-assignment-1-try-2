@@ -16,7 +16,7 @@ def readCSVFile():
     rows = []
 
     # with open("data.csv", 'r') as file:
-    with open("data.csv", 'r') as file:
+    with open("q2_data.csv", 'r') as file:
         csvreader = csv.reader(file)
         for row in csvreader:
             rows.append(row)

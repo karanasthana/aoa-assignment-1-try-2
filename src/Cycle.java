@@ -6,7 +6,7 @@ public class Cycle {
     @SuppressWarnings("rawtypes")
 	static ArrayList cycle = new ArrayList();
     @SuppressWarnings("rawtypes")
-	static LinkedList CycleList = new LinkedList();
+	static Stack CycleList = new Stack();
     static Set<Integer> visited = new HashSet<Integer>();
     @SuppressWarnings("rawtypes")
 	static Graph graph;
@@ -36,7 +36,7 @@ public class Cycle {
                 return true;
             }
         }
-        CycleList.pollLast();
+        CycleList.pop();
         return false;
     }
 
@@ -58,15 +58,15 @@ public class Cycle {
         	}
             CycleList.clear();
             if (CyclicUtil((int)v, -1)) {
-                Integer start = (Integer)CycleList.pollLast();
+                Integer start = (Integer)CycleList.pop();
 
                 cycle.add(start);
 
                 while (!CycleList.isEmpty()){
-                    if ((int)CycleList.peekLast() == start) {
+                    if ((int)CycleList.peek() == start) {
                     	break;
                     }
-                    cycle.add((Integer)CycleList.pollLast());
+                    cycle.add((Integer)CycleList.pop());
                 }
                 
                 cycle.add(start);

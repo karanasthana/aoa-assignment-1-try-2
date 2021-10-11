@@ -69,7 +69,8 @@ public final class FindCycles
 
         // Use the GnmRandomGraphGenerator object to make a simpleGraph with numVertices number of vertices
         simpleGenerator.generateGraph(simpleGraph);
-    	// printGraph(simpleGraph);
+        // boolean hasWeight = false;
+    	// printGraph(simpleGraph, hasWeight);
 
         return simpleGraph;
     }
@@ -79,12 +80,32 @@ public final class FindCycles
      * 
      * @param graph The Graph object instance which has been created with random vertices and edges
      */
-    public static void printGraph(Graph<Integer, DefaultEdge> graph) {
-      Iterator<Integer> iter = new DepthFirstIterator<>(graph);
-      while (iter.hasNext()) {
-          Integer vertex = iter.next();
-          System.out.println("Vertex " + vertex + " is connected to: " + graph.edgesOf(vertex).toString());
-      }
+    public static void printGraph(Graph<Integer, DefaultEdge> graph, boolean hasWeight) {
+    	Iterator<Integer> iter = new DepthFirstIterator<>(graph);
+    	while (iter.hasNext()) {
+    		Integer vertex = iter.next();
+    		HashSet<DefaultEdge> edges = (HashSet<DefaultEdge>) graph.edgesOf(vertex);
+			System.out.println("Vertex " + vertex + " is connected to: " + edges.toString());
+    	}
+    }
+    
+    /**
+     * Helper function to print out the graph to analyze randomness
+     * 
+     * @param graph The Graph object instance which has been created with random vertices and edges
+     */
+    public static void printWeightedGraph(Graph<Integer, DefaultWeightedEdge> graph) {
+    	Iterator<Integer> iter = new DepthFirstIterator<>(graph);
+    	while (iter.hasNext()) {
+    		Integer vertex = iter.next();
+    		Set<DefaultWeightedEdge> edges = graph.edgesOf(vertex);
+    		
+    		String weightedEdges = "";
+    		for(DefaultWeightedEdge e: edges) {
+    			weightedEdges = e.toString() + graph.getEdgeWeight(e) + " ";
+    		}
+    		System.out.println("Vertex " + vertex + " connected to: " + weightedEdges);
+    	}
     }
 
     /**

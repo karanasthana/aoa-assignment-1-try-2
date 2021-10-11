@@ -20,13 +20,8 @@ public class WeightedUndirectedGraphs {
 	            return id++;
 	        }
 	    };
-	
+
 	    // Create the graph object
-//	    Graph<Integer, DefaultWeightedEdge> simpleGraph = new SimpleWeightedGraph<>(vSupplier, SupplierUtil.createDefaultWeightedEdgeSupplier(), false);
-	
-//	    Graph<Integer, DefaultWeightedEdge>  simpleGraph = 
-//	            new SimpleWeightedGraph<Integer, DefaultWeightedEdge>(DefaultWeightedEdge.class);
-	    
 	    Graph<Integer, DefaultWeightedEdge> simpleWeightedGraph = new SimpleWeightedGraph<>(vSupplier, SupplierUtil.createDefaultWeightedEdgeSupplier());
 	    // Create the GnmRandomGraphGenerator object
 	    GnmRandomGraphGenerator<Integer, DefaultWeightedEdge> simpleGenerator = new GnmRandomGraphGenerator<>(10, 10);

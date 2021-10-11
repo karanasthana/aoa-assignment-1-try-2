@@ -37,7 +37,7 @@ public final class FindCycles
 			List<Integer> cycle = Cycle.returnCycle(graph);
             long elapsedTime = System.nanoTime() - startTime;
 
-            writeToFile(graphSize, numEdges, elapsedTime);
+            writeToFile(graphSize, numEdges, elapsedTime, "q1.csv");
     	}
     	System.out.print("Added all the data in the csv.");
     }
@@ -115,9 +115,9 @@ public final class FindCycles
      * @param numEdges The number of edges in the graph
      * @param elapsedTime The time elapsed to find if the graph has a cycle
      */
-    public static void writeToFile(int graphSize, int numEdges, long elapsedTime) {
+    public static void writeToFile(int graphSize, int numEdges, long elapsedTime, String fileName) {
     	try {
-    		FileWriter pw = new FileWriter("data.csv", true); 
+    		FileWriter pw = new FileWriter(fileName, true); 
     		pw.append(graphSize + "," + numEdges + "," + elapsedTime);
     		pw.append("\n");
     		pw.flush();

@@ -22,7 +22,7 @@ public final class FindCycles
         FindCyclesTest.runTestCases();
         System.out.println("All Test cases run successfully!");
 
-    	for (int i = 0; i < 5; i++) {
+    	for (int i = 0; i < 2000; i++) {
     		if (i < 5) {
     			graphSize = (int)(Math.random() * Math.pow(10, (i+2)));
     		} else {

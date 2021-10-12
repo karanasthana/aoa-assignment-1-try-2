@@ -19,7 +19,7 @@ public class Cycle {
      * @param parent - The node from where we entered the vertex v into the graph (to prevent double checking the same edge)
      */
     @SuppressWarnings("unchecked")
-	public static Boolean CyclicUtil(int currentV, int parent){
+	public static Boolean CyclicUtil(int currentV, int parent) {
         visited.add(currentV);
         
         CycleList.add(currentV); // adding the vertex to the DFS Stack (to store the cycle path)

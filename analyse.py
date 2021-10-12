@@ -15,7 +15,7 @@ slashedDateFormat = '%m/%d/%Y'
 def readCSVFile():
     rows = []
 
-    # with open("data.csv", 'r') as file:
+    # with open("q1_data.csv", 'r') as file:
     with open("q2_data.csv", 'r') as file:
         csvreader = csv.reader(file)
         for row in csvreader:

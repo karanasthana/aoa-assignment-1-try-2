@@ -7,6 +7,10 @@ import org.jgrapht.util.SupplierUtil;
 
 public class MSTTest {
 	
+	/**
+     * Helper function to run all the test cases and return true if all the test cases were passed successfully.
+     * 
+     */
 	public static boolean runTestCases() {
     	Supplier<Integer> vSupplier = new Supplier<Integer>()
         {
@@ -39,6 +43,11 @@ public class MSTTest {
 
     }
 	
+	/**
+     * Returns true if the MST found via code is equal to the MST that was expected
+     * 
+     * @param graph The Graph object instance which has been created with random vertices and edges
+     */
 	@SuppressWarnings("unused")
 	public static boolean runTestCase1(Graph<Integer, DefaultWeightedEdge> graph) {
 		System.out.println();
@@ -69,7 +78,7 @@ public class MSTTest {
 	    graph2.removeEdge(e4); // Because it is the 2nd most heavy edge
 	    Set<DefaultWeightedEdge> expectedEdges = graph2.edgeSet();
 	    
-	    Set<DefaultWeightedEdge> outputEdges = WeightedUndirectedGraphs.performMSTFind(graph, 4, 5);
+	    Set<DefaultWeightedEdge> outputEdges = FindMST.performMSTFind(graph, 4, 5);
 
 	    if (outputEdges == (expectedEdges)) {
 	    	System.out.println("Successfully Passed Test Case 1.");
@@ -82,8 +91,7 @@ public class MSTTest {
 	}
 	
 	/**
-     * Returns true if the graph does NOT contain a cycle, else false.
-     * This graph does not contain a cycle
+     * Returns true if the MST found via code is equal to the MST that was expected
      * 
      * @param graph The Graph object instance which has been created with random vertices and edges
      */
@@ -130,7 +138,7 @@ public class MSTTest {
 	    graph2.removeEdge(e8); // Because it is the 4th most heavy edge
 	    Set<DefaultWeightedEdge> expectedEdges = graph2.edgeSet();
 	    
-	    Set<DefaultWeightedEdge> outputEdges = WeightedUndirectedGraphs.performMSTFind(graph, 4, 5);
+	    Set<DefaultWeightedEdge> outputEdges = FindMST.performMSTFind(graph, 4, 5);
 
 	    if (outputEdges == (expectedEdges)) {
 	    	System.out.println("Successfully Passed Test Case 2.");

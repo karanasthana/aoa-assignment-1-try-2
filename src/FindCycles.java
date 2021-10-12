@@ -30,7 +30,7 @@ public final class FindCycles
         	return;
         }
 
-    	for (int i = 0; i < 0; i++) {
+    	for (int i = 0; i < 100; i++) {
     		if (i < 5) {
     			graphSize = (int)(Math.random() * Math.pow(10, (i+2)));
     		} else {

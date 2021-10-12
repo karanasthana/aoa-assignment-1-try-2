@@ -24,11 +24,9 @@ def readCSVFile():
     return header, rows
 
 def showDataOnGraph(rows):
-    # tlist = list(zip(*rows))
-    # xaxis = tlist[0]
     for row in rows:
-        if ((int)(row[2]) < 10000 or (int)(row[2]) > (1.5 * 10 ** 10)):
-            continue
+        # if ((int)(row[2]) < 10000 or (int)(row[2]) > (1.5 * 10 ** 10)):
+            # continue
 
         plt.scatter((int)(row[0]), (int)(row[2]), color='blue')
 
@@ -36,15 +34,6 @@ def showDataOnGraph(rows):
 
 def main():
     header, rows = readCSVFile()
-
-    print('number of rows is ', len(rows))
-
-    # Initializing dictionary to store the indices of the new columns
-    i=0
-    for val in header:
-        headerIndexDict[val] = i
-        i = i + 1
-
     showDataOnGraph(rows)
 
 main()

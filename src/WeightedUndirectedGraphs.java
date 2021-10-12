@@ -2,7 +2,6 @@ import java.util.function.Supplier;
 import java.util.*;
 
 import org.jgrapht.Graph;
-import org.jgrapht.generate.GnmRandomGraphGenerator;
 import org.jgrapht.generate.PruferTreeGenerator;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
@@ -11,10 +10,18 @@ import org.jgrapht.util.SupplierUtil;
 public class WeightedUndirectedGraphs {
 	
 	public static void main(String ...args) {
-        FindCyclesTest.runTestCases();
-        System.out.println("All Test cases run successfully!");
 
-    	for (int i = 0; i < 2000; i++) {
+        boolean testCasesSuccessful = MSTTest.runTestCases();
+        if (testCasesSuccessful) {
+        	System.out.println();
+        	System.out.println("All Test cases run successfully!");        	
+        } else {
+        	System.out.println();
+        	System.out.println("Test Case Failure!");
+        	return;
+        }
+
+    	for (int i = 0; i < 0; i++) {
 			int numVertices = 0;
     		if (i < 5) {
     			numVertices = (int)(Math.random() * Math.pow(10, (i+2)));
@@ -36,10 +43,10 @@ public class WeightedUndirectedGraphs {
     		if (i%100 == 0)
     		System.out.println("Computed " + i + " values");
     	}
-    	System.out.print("Added all the data in the csv.");
+//    	System.out.print("Added all the data in the csv.");
 	}
 
-	public static void performMSTFind(Graph<Integer, DefaultWeightedEdge> graph, int numVertices, int numEdges) {
+	public static Set<DefaultWeightedEdge> performMSTFind(Graph<Integer, DefaultWeightedEdge> graph, int numVertices, int numEdges) {
 		long startTime = System.nanoTime();
 
 		// HERE WE NEED TO DO THE MST LOGIC
@@ -49,13 +56,15 @@ public class WeightedUndirectedGraphs {
 			graph.removeEdge(heaviestEdge);
 		}
 
-		List<Integer> lastCycle = Cycle.returnCycle(graph);
+//		List<Integer> lastCycle = Cycle.returnCycle(graph);
 		long endTime = System.nanoTime();
 		long elapsedTime = endTime - startTime;
 		
 //		System.out.println("Found the MST after removing " + (numEdges - numVertices + 1) + " edges!");
 
 		FindCycles.writeToFile(numVertices, numEdges, elapsedTime, "q2_data.csv");
+		
+		return graph.edgeSet();
 	}
 
 	public static Graph<Integer, DefaultWeightedEdge> generateWeightedGraphs(int verticesNum) {
@@ -86,7 +95,7 @@ public class WeightedUndirectedGraphs {
 	    for (DefaultWeightedEdge e: edges) {
 	    	sparseGraph.setEdgeWeight(e, (Math.ceil(Math.random() * numEdges * 5)));
 	    }
-    
+
 		return sparseGraph;
 	}
 	
@@ -125,7 +134,7 @@ public class WeightedUndirectedGraphs {
 	public static DefaultWeightedEdge removeHeaviestEdge(List<Integer> verticesList, Set<DefaultWeightedEdge> edgesSet, Graph<Integer, DefaultWeightedEdge> graph) {
 		double max = -1;
 		DefaultWeightedEdge maxEdge = null;
-		// int sourceF=-1, targetF=-1;
+		// int sourceF = -1, targetF = -1;
 
 		for(DefaultWeightedEdge edge : edgesSet) {
 			double edgeWeight = graph.getEdgeWeight(edge);

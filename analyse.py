@@ -27,8 +27,9 @@ def showDataOnGraph(rows):
     # tlist = list(zip(*rows))
     # xaxis = tlist[0]
     for row in rows:
-        if ((int)(row[2]) < 10000):
+        if ((int)(row[2]) < 10000 or (int)(row[2]) > (1.5 * 10 ** 10)):
             continue
+
         plt.scatter((int)(row[0]), (int)(row[2]), color='blue')
 
     plt.show()

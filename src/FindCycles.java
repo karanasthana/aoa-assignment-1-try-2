@@ -19,10 +19,18 @@ public final class FindCycles
     public static void main(String[] args) {
         int graphSize = 0;
 
-        FindCyclesTest.runTestCases();
-        System.out.println("All Test cases run successfully!");
+        // Running the Test Cases
+        boolean testCasesSuccessful = FindCyclesTest.runTestCases();
+        if (testCasesSuccessful) {
+        	System.out.println();
+        	System.out.println("All Test cases run successfully!");        	
+        } else {
+        	System.out.println();
+        	System.out.println("Test Case Failure!");
+        	return;
+        }
 
-    	for (int i = 0; i < 2000; i++) {
+    	for (int i = 0; i < 0; i++) {
     		if (i < 5) {
     			graphSize = (int)(Math.random() * Math.pow(10, (i+2)));
     		} else {
@@ -39,7 +47,7 @@ public final class FindCycles
 
             writeToFile(graphSize, numEdges, elapsedTime, "q1.csv");
     	}
-    	System.out.print("Added all the data in the csv.");
+//    	System.out.print("Added all the data in the csv.");
     }
     
     /**
